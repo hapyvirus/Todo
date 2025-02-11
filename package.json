@@ -1,15 +1,18 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon main,js",
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "express": "^4.21.2",
+    "main.js": "^0.0.1",
     "mongoose": "^7.8.6"
   }
 }
