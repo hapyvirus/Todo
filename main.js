@@ -25,34 +25,58 @@ app.get("/tasks", async (req, res) => {
 });
 
 app.get("/tasks/:id", async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  if (task) {
-    res.send(task);
-  } else {
-    res.status(404).send({ mesage: "Cannot find ID" });
+  try {
+    const task = await Task.findById(req.params.id);
+    if (task) {
+      res.send(task);
+    } else {
+      res.status(404).send({ mesage: "Cannot find ID" });
+    }
+  } catch (e) {
+    if (e.name === "CastError") {
+      res.status(404).send({ mesage: "Cannot find ID" });
+    } else {
+      res.status(500).send({ mesage: e.error });
+    }
   }
 });
 
 app.patch("/tasks/:id", async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  if (task) {
-    const data = req.body;
-    Object.keys(data).forEach((key) => {
-      task[key] = data[key];
-    });
-    await task.save();
-    res.send(task);
-  } else {
-    res.status(404).send({ mesage: "Cannot find ID" });
+  try {
+    const task = await Task.findById(req.params.id);
+    if (task) {
+      const data = req.body;
+      Object.keys(data).forEach((key) => {
+        task[key] = data[key];
+      });
+      await task.save();
+      res.send(task);
+    } else {
+      res.status(404).send({ mesage: "Cannot find ID" });
+    }
+  } catch (e) {
+    if (e.name === "CastError") {
+      res.status(404).send({ mesage: "Cancnot find Id" });
+    } else {
+      res.status(500).send({ mesags: e.error });
+    }
   }
 });
 
 app.delete("/tasks/:id", async (req, res) => {
-  const task = await Task.findByIdAndDelete(req.params.id);
-  if (task) {
-    res.sendStatus(200);
-  } else {
-    res.status(404).send({ mesage: "Cannot find ID " });
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (task) {
+      res.sendStatus(200);
+    } else {
+      res.status(404).send({ mesage: "Cannot find ID " });
+    }
+  } catch (e) {
+    if (e.name === "CastError") {
+      res.status(404).send({ mesage: "Cannot find ID" });
+    } else {
+      res.status(500).send({ mesage: e.error });
+    }
   }
 });
 
