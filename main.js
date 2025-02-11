@@ -1,12 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import Task from "./task.js";
-import { DATABASE_URL, PORT } from "./env.js";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-await mongoose.connect(DATABASE_URL);
+await mongoose.connect(process.env.DATABASE_URL);
 
 function asyncHandler(handler) {
   return async function (req, res) {
@@ -89,4 +91,6 @@ app.delete(
   })
 );
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(process.env.PORT, () =>
+  console.log(`Server started on port ${process.env.PORT}`)
+);
