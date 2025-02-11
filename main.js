@@ -17,19 +17,42 @@ app.post("/tasks", async (req, res) => {
 });
 
 app.get("/tasks", async (req, res) => {
-  const count = Nunber(req.query.count) || 0;
+  const count = Number(req.query.count) || 0;
   const sortOption =
-    req.query.sort === oldest ? ["createdAt", "asc"] : ["createdAt", "desc"];
-  const tasks = await Task.find().limit(count).sort(sortOption);
+    req.query.sort === "oldest" ? ["createdAt", "asc"] : ["createdAt", "desc"];
+  const tasks = await Task.find().limit(count).sort([sortOption]);
   res.send(tasks);
 });
 
-app.get("/tasks", async (req, res) => {
+app.get("/tasks/:id", async (req, res) => {
   const task = await Task.findById(req.params.id);
   if (task) {
     res.send(task);
   } else {
     res.status(404).send({ mesage: "Cannot find ID" });
+  }
+});
+
+app.patch("/tasks/:id", async (req, res) => {
+  const task = await Task.findById(req.params.id);
+  if (task) {
+    const data = req.body;
+    Object.keys(data).forEach((key) => {
+      task[key] = data[key];
+    });
+    await task.save();
+    res.send(task);
+  } else {
+    res.status(404).send({ mesage: "Cannot find ID" });
+  }
+});
+
+app.delete("/tasks/:id", async (req, res) => {
+  const task = await Task.findByIdAndDelete(req.params.id);
+  if (task) {
+    res.sendStatus(200);
+  } else {
+    res.status(404).send({ mesage: "Cannot find ID " });
   }
 });
 

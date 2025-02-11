@@ -6,3 +6,21 @@ Content-Type: application/json
   "title": "node.js",
   "description": "꼭하기"
 }
+
+###
+GET http://localhost:4000/tasks
+
+###
+GET http://localhost:4000/tasks/67aadbea674f681699982e42
+
+###
+PATCH http://localhost:4000/tasks/67aadbea674f681699982e42
+Content-Type: application/json
+
+{
+  "title": "node.js update",
+  "description": "수정하자"
+}
+
+###
+DELETE http://localhost:4000/tasks/67aadbea674f681699982e42
