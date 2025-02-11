@@ -1,4 +1,4 @@
 export const DATABASE_URL =
-  "mongodb+srv://fresh502:YjtAs1QblU1JnrKA@codeit-nodejs.wao1f.mongodb.net/todo-api?retryWrites=true&w=majority&appName=codeit-nodejs";
+  "mongodb+srv://serenity2011:Make%4026inch@codeit-project.rhu81.mongodb.net/todo-api?retryWrites=true&w=majority&appName=Codeit-Project";
 
 export const PORT = 4000;
