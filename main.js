@@ -8,11 +8,11 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: ["https://todo.com"],
-};
+// const corsOptions = {
+//   origin: ["https://todo.com"],
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 await mongoose.connect(process.env.DATABASE_URL);
