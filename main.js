@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import Task from "./task.js";
 import * as dotenv from "dotenv";
@@ -6,6 +7,12 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
+const corsOptions = {
+  origin: ["https://todo.com"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 await mongoose.connect(process.env.DATABASE_URL);
@@ -18,6 +25,7 @@ function asyncHandler(handler) {
       if (e.name === "CastError") {
         res.status(404).send({ message: "Cannot find ID" });
       } else if (e.name === "vaildationError") {
+        console.log("Error occured!");
         res.status(400).send({ mesasgs: e.message });
       } else {
         res.status(500).send({ mesage: e.message });

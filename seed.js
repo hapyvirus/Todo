@@ -3,6 +3,8 @@ import data from "./seedData.js";
 import Task from "./task.js";
 import * as dotenv from "dotenv";
 
+dotenv.config();
+
 console.log("Start seed");
 
 await mongoose.connect(process.env.DATABASE_URL);
